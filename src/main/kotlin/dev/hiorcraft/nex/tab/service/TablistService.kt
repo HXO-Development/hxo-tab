@@ -1,12 +1,9 @@
 package dev.hiorcraft.nex.tab.service
 
 import dev.hiorcraft.nex.tab.hook.LuckPermsHook
-import dev.hiorcraft.nex.tab.hook.PlaytimeHook
 import dev.hiorcraft.nex.tab.plugin
 import dev.hiorcraft.nex.tab.util.formatWithAdventure
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.concurrent.TimeUnit
@@ -34,29 +31,9 @@ class TablistService {
     }
 
     fun formatPlayer(player: Player) {
-        val luckPermsEnabled = Bukkit.getPluginManager().isPluginEnabled("LuckPerms")
-
-        val prefix = if (luckPermsEnabled) LuckPermsHook.getPrefix(player) ?: Component.empty() else Component.empty()
-        val suffix = if (luckPermsEnabled) LuckPermsHook.getSuffix(player) ?: Component.empty() else Component.empty()
-        val color = if (luckPermsEnabled) LuckPermsHook.getGroupColor(player) ?: NamedTextColor.WHITE else NamedTextColor.WHITE
-
-        val coloredName = Component.text(player.name, color)
-        val afkTag = getAfkTag(player)
-
-        val tabName = Component.empty()
-            .append(prefix)
-            .append(coloredName)
-            .append(suffix)
-            .append(afkTag)
-
-        player.playerListName(tabName)
+        val format = plugin.config.getString("player-format") ?: "<player_name>"
+        player.playerListName(format.formatWithAdventure(player))
         updateSortingTeam(player)
-    }
-
-    private fun getAfkTag(player: Player): Component {
-        if (!Bukkit.getPluginManager().isPluginEnabled("surf-playtime-paper")) return Component.empty()
-        if (!PlaytimeHook.isAfk(player.uniqueId)) return Component.empty()
-        return Component.text(" [AFK]", NamedTextColor.GRAY)
     }
 
     private fun updateSortingTeam(player: Player) {

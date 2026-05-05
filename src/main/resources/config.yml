@@ -1,2 +1,3 @@
 header: "<br><gradient:#6EA6D9:#59CCF2><bold>Nex Tab</bold></gradient><br><gray><date> <time></gray><br><gray>Online: <players_online>/<players_max></gray>"
 footer: "<gray>Du befindest dich auf <white><server></white></gray>"
+player-format: "%luckperms_prefix%<player_name>%luckperms_suffix%"

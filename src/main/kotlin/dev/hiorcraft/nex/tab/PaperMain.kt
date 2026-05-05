@@ -3,7 +3,6 @@ package dev.hiorcraft.nex.tab
 import dev.hiorcraft.nex.tab.command.NexTabCommand
 import dev.hiorcraft.nex.tab.hook.LuckPermsHook
 import dev.hiorcraft.nex.tab.listener.PlayerListener
-import dev.hiorcraft.nex.tab.listener.PlaytimeListener
 import dev.hiorcraft.nex.tab.service.TablistService
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -27,10 +26,6 @@ class PaperMain : JavaPlugin() {
 
         if (pm.isPluginEnabled("LuckPerms")) {
             LuckPermsHook.load()
-        }
-
-        if (pm.isPluginEnabled("surf-playtime-paper")) {
-            pm.registerEvents(PlaytimeListener, this)
         }
 
         pm.registerEvents(PlayerListener, this)

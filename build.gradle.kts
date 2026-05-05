@@ -17,11 +17,13 @@ surfPaperPluginApi {
 
     serverDependencies {
         registerRequired("LuckPerms")
-        registerSoft("surf-playtime-paper")
+        registerSoft("MiniPlaceholders")
+        registerSoft("PlaceholderAPI")
     }
 }
 
 dependencies {
     compileOnly("net.luckperms:api:5.4")
-    compileOnly("dev.slne.surf.playtime:surf-playtime-api-paper:+")
+    compileOnly("io.github.miniplaceholders:miniplaceholders-api:3.2.0")
+    compileOnly("me.clip:placeholderapi:2.11.6")
 }
