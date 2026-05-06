@@ -27,11 +27,11 @@ fun nexTabCommand() = commandTree("nextab") {
 
     anyExecutor { executor, _ ->
 
-        Bukkit.getAsyncScheduler().runNow(plugin) { _ ->
-            Bukkit.getOnlinePlayers().forEach { player ->
+        Bukkit.getOnlinePlayers().forEach { player ->
+            player.scheduler.run(plugin, { _ ->
                 tablistService.sendAdditions(player)
                 tablistService.formatPlayer(player)
-            }
+            }, null)
         }
 
         executor.sendText{

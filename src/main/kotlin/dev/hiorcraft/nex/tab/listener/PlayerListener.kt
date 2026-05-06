@@ -14,7 +14,7 @@ object PlayerListener : Listener {
     fun onJoin(event: PlayerJoinEvent) {
         val player = event.player
         tablistService.sendAdditions(player)
-        Bukkit.getAsyncScheduler().runNow(plugin) { tablistService.formatPlayer(player) }
+        player.scheduler.run(plugin, { _ -> tablistService.formatPlayer(player) }, null)
     }
 
     @EventHandler
