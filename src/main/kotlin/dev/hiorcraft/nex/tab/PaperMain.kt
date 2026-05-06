@@ -1,6 +1,6 @@
 package dev.hiorcraft.nex.tab
 
-import dev.hiorcraft.nex.tab.command.NexTabCommand
+import dev.hiorcraft.nex.tab.command.nexTabCommand
 import dev.hiorcraft.nex.tab.hook.LuckPermsHook
 import dev.hiorcraft.nex.tab.listener.PlayerListener
 import dev.hiorcraft.nex.tab.service.TablistService
@@ -30,7 +30,7 @@ class PaperMain : JavaPlugin() {
 
         pm.registerEvents(PlayerListener, this)
         tablistService.start()
-        NexTabCommand.register(this)
+        nexTabCommand()
     }
 
     override fun onDisable() {
