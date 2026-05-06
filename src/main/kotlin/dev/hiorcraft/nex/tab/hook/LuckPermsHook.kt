@@ -20,24 +20,38 @@ object LuckPermsHook {
         return group.weight.orElse(0)
     }
 
+    fun getPrefix(player: Player): String {
+        val user = luckPerms.userManager.getUser(player.uniqueId) ?: return ""
+        return user.cachedData.metaData.prefix ?: ""
+    }
+
+    fun getSuffix(player: Player): String {
+        val user = luckPerms.userManager.getUser(player.uniqueId) ?: return ""
+        return user.cachedData.metaData.suffix ?: ""
+    }
+
+    private fun schedulePlayerReformat(player: Player) {
+        player.scheduler.run(plugin, { _ -> tablistService.formatPlayer(player) }, null)
+    }
+
     fun load() {
         val eventBus = luckPerms.eventBus
 
         eventBus.subscribe(plugin, NodeAddEvent::class.java) { event ->
             val target = event.target as? User ?: return@subscribe
             val player = Bukkit.getPlayer(target.uniqueId) ?: return@subscribe
-            Bukkit.getAsyncScheduler().runNow(plugin) { tablistService.formatPlayer(player) }
+            schedulePlayerReformat(player)
         }
 
         eventBus.subscribe(plugin, NodeRemoveEvent::class.java) { event ->
             val target = event.target as? User ?: return@subscribe
             val player = Bukkit.getPlayer(target.uniqueId) ?: return@subscribe
-            Bukkit.getAsyncScheduler().runNow(plugin) { tablistService.formatPlayer(player) }
+            schedulePlayerReformat(player)
         }
 
         eventBus.subscribe(plugin, UserDataRecalculateEvent::class.java) { event ->
             val player = Bukkit.getPlayer(event.user.uniqueId) ?: return@subscribe
-            Bukkit.getAsyncScheduler().runNow(plugin) { tablistService.formatPlayer(player) }
+            schedulePlayerReformat(player)
         }
     }
 }
