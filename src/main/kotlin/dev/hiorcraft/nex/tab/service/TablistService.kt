@@ -2,15 +2,16 @@ package dev.hiorcraft.nex.tab.service
 
 import dev.hiorcraft.nex.tab.hook.LuckPermsHook
 import dev.hiorcraft.nex.tab.plugin
+import dev.hiorcraft.nex.tab.tablistConfig
 import dev.hiorcraft.nex.tab.util.formatWithAdventure
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.concurrent.TimeUnit
 
 class TablistService {
-
-    private var task: ScheduledTask? = null
+    private lateinit var task: ScheduledTask
 
     fun start() {
         task = Bukkit.getAsyncScheduler().runAtFixedRate(plugin, { _ ->
@@ -19,36 +20,28 @@ class TablistService {
     }
 
     fun stop() {
-        task?.cancel()
-        task = null
+        if (::task.isInitialized) task.cancel()
     }
 
     fun sendAdditions(player: Player) {
-        val config = plugin.config
-        val header = (config.getString("header") ?: "").formatWithAdventure(player)
-        val footer = (config.getString("footer") ?: "").formatWithAdventure(player)
-        player.sendPlayerListHeaderAndFooter(header, footer)
+        player.sendPlayerListHeaderAndFooter(
+            tablistConfig.header.formatWithAdventure(player),
+            tablistConfig.footer.formatWithAdventure(player)
+        )
     }
 
     fun formatPlayer(player: Player) {
-        val format = plugin.config.getString("player-format") ?: "<player_name>"
-        player.playerListName(format.formatWithAdventure(player))
-        updateSortingTeam(player)
-    }
+        val luckPermsEnabled = Bukkit.getPluginManager().isPluginEnabled("LuckPerms")
 
-    private fun updateSortingTeam(player: Player) {
-        val weight = if (Bukkit.getPluginManager().isPluginEnabled("LuckPerms")) {
-            LuckPermsHook.getWeight(player)
-        } else 0
+        val prefix = if (luckPermsEnabled) LuckPermsHook.getPrefix(player) else ""
+        val suffix = if (luckPermsEnabled) LuckPermsHook.getSuffix(player) else ""
+        val weight = if (luckPermsEnabled) LuckPermsHook.getWeight(player) else 0
 
-        val teamName = "nxt_${(99999 - weight).toString().padStart(5, '0')}"
+        player.playerListName(MiniMessage.miniMessage().deserialize("$prefix${player.name}$suffix"))
+
+        val teamName = "nt_${(1000 - weight).coerceAtLeast(0).toString().padStart(4, '0')}"
         val scoreboard = Bukkit.getScoreboardManager().mainScoreboard
-
-        scoreboard.teams
-            .filter { it.name.startsWith("nxt_") && it.hasEntry(player.name) }
-            .forEach { it.removeEntry(player.name) }
-
         val team = scoreboard.getTeam(teamName) ?: scoreboard.registerNewTeam(teamName)
-        team.addEntry(player.name)
+        team.addPlayer(player)
     }
 }
