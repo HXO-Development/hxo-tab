@@ -7,7 +7,7 @@ import dev.hiorcraft.nex.tab.tablistService
 import dev.jorel.commandapi.kotlindsl.anyExecutor
 import dev.jorel.commandapi.kotlindsl.commandTree
 import dev.jorel.commandapi.kotlindsl.literalArgument
-import dev.slne.surf.surfapi.core.api.messages.adventure.sendText
+import dev.slne.surf.api.core.messages.adventure.sendText
 import org.bukkit.Bukkit
 
 fun nexTabCommand() = commandTree("nexTab") {

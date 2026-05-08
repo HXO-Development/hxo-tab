@@ -1,8 +1,7 @@
 package dev.hiorcraft.nex.tab.util
 
 import dev.hiorcraft.nex.tab.tablistConfig
-import dev.slne.surf.surfapi.core.api.messages.adventure.buildText
-import io.github.miniplaceholders.api.MiniPlaceholders
+import dev.slne.surf.api.core.messages.adventure.buildText
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.Tag
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
@@ -14,14 +13,26 @@ import java.time.format.DateTimeFormatter
 private val dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
 private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
+private fun optionalMiniPlaceholdersResolvers(): List<TagResolver> = runCatching {
+    val clazz = Class.forName("io.github.miniplaceholders.api.MiniPlaceholders")
+    listOf(
+        "globalPlaceholders",
+        "audiencePlaceholders",
+        "relationalPlaceholders",
+        "relationalGlobalPlaceholders",
+        "audienceGlobalPlaceholders"
+    ).mapNotNull { methodName ->
+        clazz.getMethod(methodName).invoke(null) as? TagResolver
+    }
+}.getOrDefault(emptyList())
+
 private val globalResolver by lazy {
-    TagResolver.resolver(
-        MiniPlaceholders.globalPlaceholders(),
-        MiniPlaceholders.audiencePlaceholders(),
-        MiniPlaceholders.relationalPlaceholders(),
-        MiniPlaceholders.relationalGlobalPlaceholders(),
-        MiniPlaceholders.audienceGlobalPlaceholders()
-    )
+    val resolvers = optionalMiniPlaceholdersResolvers()
+    if (resolvers.isEmpty()) {
+        TagResolver.empty()
+    } else {
+        TagResolver.resolver(*resolvers.toTypedArray())
+    }
 }
 
 private fun customResolver(): TagResolver = TagResolver.resolver(
