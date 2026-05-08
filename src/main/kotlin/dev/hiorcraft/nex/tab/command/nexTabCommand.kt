@@ -11,7 +11,7 @@ import dev.slne.surf.surfapi.core.api.messages.adventure.sendText
 import org.bukkit.Bukkit
 
 fun nexTabCommand() = commandTree("nexTab") {
-    withPermission("surf.tab.command.surftab")
+    withPermission("nex.tab.command.nextab")
 
     literalArgument("reload") {
         anyExecutor { executor, _ ->
