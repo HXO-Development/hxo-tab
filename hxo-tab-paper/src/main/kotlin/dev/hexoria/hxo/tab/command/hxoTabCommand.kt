@@ -1,17 +1,17 @@
-package dev.hiorcraft.nex.tab.command
+package dev.hexoria.hxo.tab.command
 
 import com.github.shynixn.mccoroutine.folia.launch
-import dev.hiorcraft.nex.tab.plugin
-import dev.hiorcraft.nex.tab.tablistConfigProvider
-import dev.hiorcraft.nex.tab.tablistService
+import dev.hexoria.hxo.tab.plugin
+import dev.hexoria.hxo.tab.tablistConfigProvider
+import dev.hexoria.hxo.tab.tablistService
 import dev.jorel.commandapi.kotlindsl.anyExecutor
 import dev.jorel.commandapi.kotlindsl.commandTree
 import dev.jorel.commandapi.kotlindsl.literalArgument
 import dev.slne.surf.api.core.messages.adventure.sendText
 import org.bukkit.Bukkit
 
-fun nexTabCommand() = commandTree("nexTab") {
-    withPermission("nex.tab.command.nextab")
+fun hxoTabCommand() = commandTree("hxoTab") {
+    withPermission("hxo.tab.command.hxotab")
 
     literalArgument("reload") {
         anyExecutor { executor, _ ->

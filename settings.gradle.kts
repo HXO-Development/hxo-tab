@@ -9,3 +9,6 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
     id("dev.slne.surf.api.gradle.settings") version "+"
 }
+
+include("hxo-tab-api")
+include("hxo-tab-paper")

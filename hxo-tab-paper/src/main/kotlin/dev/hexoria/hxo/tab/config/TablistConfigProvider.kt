@@ -1,6 +1,6 @@
-package dev.hiorcraft.nex.tab.config
+package dev.hexoria.hxo.tab.config
 
-import dev.hiorcraft.nex.tab.plugin
+import dev.hexoria.hxo.tab.plugin
 import dev.slne.surf.api.core.config.manager.SpongeConfigManager
 import dev.slne.surf.api.core.config.surfConfigApi
 

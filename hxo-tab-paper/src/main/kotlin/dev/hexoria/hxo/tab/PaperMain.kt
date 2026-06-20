@@ -1,10 +1,11 @@
-package dev.hiorcraft.nex.tab
+package dev.hexoria.hxo.tab
 
-import dev.hiorcraft.nex.tab.command.nexTabCommand
-import dev.hiorcraft.nex.tab.config.TablistConfigProvider
-import dev.hiorcraft.nex.tab.hook.LuckPermsHook
-import dev.hiorcraft.nex.tab.listener.PlayerListener
-import dev.hiorcraft.nex.tab.service.TablistService
+import dev.hexoria.hxo.tab.api.HxoTabApi
+import dev.hexoria.hxo.tab.command.hxoTabCommand
+import dev.hexoria.hxo.tab.config.TablistConfigProvider
+import dev.hexoria.hxo.tab.hook.LuckPermsHook
+import dev.hexoria.hxo.tab.listener.PlayerListener
+import dev.hexoria.hxo.tab.service.TablistService
 import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var plugin: PaperMain
@@ -28,6 +29,8 @@ class PaperMain : JavaPlugin() {
         tablistConfigProvider = TablistConfigProvider()
         tablistService = TablistService()
 
+        HxoTabApi.set(tablistService)
+
         val pm = server.pluginManager
 
         if (pm.isPluginEnabled("LuckPerms")) {
@@ -36,10 +39,11 @@ class PaperMain : JavaPlugin() {
 
         pm.registerEvents(PlayerListener, this)
         tablistService.start()
-        nexTabCommand()
+        hxoTabCommand()
     }
 
     override fun onDisable() {
         tablistService.stop()
+        HxoTabApi.set(null)
     }
 }

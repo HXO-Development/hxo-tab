@@ -1,16 +1,17 @@
-package dev.hiorcraft.nex.tab.service
+package dev.hexoria.hxo.tab.service
 
-import dev.hiorcraft.nex.tab.hook.LuckPermsHook
-import dev.hiorcraft.nex.tab.plugin
-import dev.hiorcraft.nex.tab.tablistConfig
-import dev.hiorcraft.nex.tab.util.formatWithAdventure
+import dev.hexoria.hxo.tab.api.HxoTabApi
+import dev.hexoria.hxo.tab.hook.LuckPermsHook
+import dev.hexoria.hxo.tab.plugin
+import dev.hexoria.hxo.tab.tablistConfig
+import dev.hexoria.hxo.tab.util.formatWithAdventure
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.util.concurrent.TimeUnit
 
-class TablistService {
+class TablistService : HxoTabApi {
     private lateinit var task: ScheduledTask
 
     fun start() {
@@ -23,14 +24,14 @@ class TablistService {
         if (::task.isInitialized) task.cancel()
     }
 
-    fun sendAdditions(player: Player) {
+    override fun sendAdditions(player: Player) {
         player.sendPlayerListHeaderAndFooter(
             tablistConfig.header.formatWithAdventure(player),
             tablistConfig.footer.formatWithAdventure(player)
         )
     }
 
-    fun formatPlayer(player: Player) {
+    override fun formatPlayer(player: Player) {
         val luckPermsEnabled = Bukkit.getPluginManager().isPluginEnabled("LuckPerms")
 
         val prefix = if (luckPermsEnabled) LuckPermsHook.getPrefix(player) else ""
@@ -39,7 +40,7 @@ class TablistService {
 
         player.playerListName(MiniMessage.miniMessage().deserialize("$prefix${player.name}$suffix"))
 
-        val teamName = "nt_${(1000 - weight).coerceAtLeast(0).toString().padStart(4, '0')}"
+        val teamName = "ht_${(1000 - weight).coerceAtLeast(0).toString().padStart(4, '0')}"
         val scoreboard = Bukkit.getScoreboardManager().mainScoreboard
         val team = scoreboard.getTeam(teamName) ?: scoreboard.registerNewTeam(teamName)
         team.addPlayer(player)

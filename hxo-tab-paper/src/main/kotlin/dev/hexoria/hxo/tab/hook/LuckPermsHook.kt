@@ -1,7 +1,7 @@
-package dev.hiorcraft.nex.tab.hook
+package dev.hexoria.hxo.tab.hook
 
-import dev.hiorcraft.nex.tab.plugin
-import dev.hiorcraft.nex.tab.tablistService
+import dev.hexoria.hxo.tab.plugin
+import dev.hexoria.hxo.tab.tablistService
 import net.luckperms.api.LuckPermsProvider
 import net.luckperms.api.event.node.NodeAddEvent
 import net.luckperms.api.event.node.NodeRemoveEvent

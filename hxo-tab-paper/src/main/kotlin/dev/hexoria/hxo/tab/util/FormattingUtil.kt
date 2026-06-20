@@ -1,6 +1,6 @@
-package dev.hiorcraft.nex.tab.util
+package dev.hexoria.hxo.tab.util
 
-import dev.hiorcraft.nex.tab.tablistConfig
+import dev.hexoria.hxo.tab.tablistConfig
 import dev.slne.surf.api.core.messages.adventure.buildText
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.Tag

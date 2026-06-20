@@ -1,8 +1,8 @@
-package dev.hiorcraft.nex.tab.listener
+package dev.hexoria.hxo.tab.listener
 
 import com.github.shynixn.mccoroutine.folia.launch
-import dev.hiorcraft.nex.tab.plugin
-import dev.hiorcraft.nex.tab.tablistService
+import dev.hexoria.hxo.tab.plugin
+import dev.hexoria.hxo.tab.tablistService
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
