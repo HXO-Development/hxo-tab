@@ -1,6 +1,8 @@
 package dev.hexoria.hxo.tab.hook
 
 import dev.hexoria.hxo.tab.plugin
+import dev.hexoria.hxo.tab.redisApi
+import dev.hexoria.hxo.tab.redis.event.TabEntryUpdateRedisEvent
 import dev.hexoria.hxo.tab.tablistService
 import net.luckperms.api.LuckPermsProvider
 import net.luckperms.api.event.node.NodeAddEvent
@@ -32,6 +34,7 @@ object LuckPermsHook {
 
     private fun schedulePlayerReformat(player: Player) {
         player.scheduler.run(plugin, { _ -> tablistService.formatPlayer(player) }, null)
+        redisApi.publishEvent(TabEntryUpdateRedisEvent(player.uniqueId))
     }
 
     fun load() {

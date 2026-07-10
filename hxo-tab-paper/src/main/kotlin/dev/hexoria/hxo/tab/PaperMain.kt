@@ -39,11 +39,13 @@ class PaperMain : JavaPlugin() {
 
         pm.registerEvents(PlayerListener, this)
         tablistService.start()
+        redisLoader.connect()
         hxoTabCommand()
     }
 
     override fun onDisable() {
         tablistService.stop()
+        redisLoader.disconnect()
         HxoTabApi.set(null)
     }
 }

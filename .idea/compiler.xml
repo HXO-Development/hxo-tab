@@ -4,6 +4,13 @@
     <bytecodeTargetLevel target="25" />
   </component>
   <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hxo-tab.hxo-tab-api" options="-parameters" />
+      <module name="hxo-tab.hxo-tab-api.main" options="-parameters" />
+      <module name="hxo-tab.hxo-tab-api.test" options="-parameters" />
+      <module name="hxo-tab.hxo-tab-paper" options="-parameters" />
+      <module name="hxo-tab.hxo-tab-paper.main" options="-parameters" />
+      <module name="hxo-tab.hxo-tab-paper.test" options="-parameters" />
+    </option>
   </component>
 </project>

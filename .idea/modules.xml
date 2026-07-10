@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/nex-tab.main.iml" filepath="$PROJECT_DIR$/.idea/modules/nex-tab.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hxo-tab-api/hxo-tab.hxo-tab-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hxo-tab-api/hxo-tab.hxo-tab-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hxo-tab-paper/hxo-tab.hxo-tab-paper.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hxo-tab-paper/hxo-tab.hxo-tab-paper.main.iml" />
     </modules>
   </component>
 </project>

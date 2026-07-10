@@ -8,6 +8,8 @@ surfPaperPluginApi {
     mainClass("dev.hexoria.hxo.tab.PaperMain")
     generateLibraryLoader(false)
 
+    withSurfRedis()
+
     serverDependencies {
         registerRequired("LuckPerms")
         registerRequired("MiniPlaceholders")
