@@ -1,7 +1,7 @@
 package dev.hexoria.hxo.tab.util
 
-import dev.hexoria.hxo.tab.tablistConfig
 import dev.slne.surf.api.core.messages.adventure.buildText
+import dev.slne.surf.core.api.common.server.SurfServer
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.Tag
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
@@ -37,7 +37,7 @@ private val globalResolver by lazy {
 
 private fun customResolver(): TagResolver = TagResolver.resolver(
     TagResolver.resolver("server", Tag.inserting(buildText {
-        variableValue(tablistConfig.serverName)
+        variableValue(SurfServer.current().name)
     })),
     TagResolver.resolver("players_online", Tag.inserting(buildText {
         info(Bukkit.getOnlinePlayers().size)

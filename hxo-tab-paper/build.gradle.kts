@@ -9,6 +9,7 @@ surfPaperPluginApi {
     generateLibraryLoader(false)
 
     withSurfRedis()
+    withCorePaper()
 
     serverDependencies {
         registerRequired("LuckPerms")
