@@ -22,5 +22,5 @@ surfPaperPluginApi {
 dependencies {
     compileOnly("net.luckperms:api:5.4")
     compileOnly("io.github.miniplaceholders:miniplaceholders-api:2.3.0")
-    compileOnly(project(":hxo-tab-api"))
+    api(project(":hxo-tab-api"))
 }
